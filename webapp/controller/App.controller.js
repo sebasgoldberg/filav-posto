@@ -3,7 +3,7 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
-	return Controller.extend("sap.ui.demo.basicTemplate.controller.App", {
+	return Controller.extend("iamsoft.filav.posto.controller.App", {
 
 		onInit: function () {
 

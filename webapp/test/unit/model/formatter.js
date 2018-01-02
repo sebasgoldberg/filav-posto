@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"sap/ui/demo/basicTemplate/model/formatter"
+	"iamsoft/filav/posto/model/formatter"
 ], function() {
 	"use strict";
 

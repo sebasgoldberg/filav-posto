@@ -1,7 +1,7 @@
 {
 	"_version": "1.8.0",
 	"sap.app": {
-		"id": "sap.ui.demo.basicTemplate",
+		"id": "iamsoft.filav.posto",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -32,7 +32,7 @@
 
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "sap.ui.demo.basicTemplate.view.App",
+			"viewName": "iamsoft.filav.posto.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "app"
@@ -53,7 +53,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "sap.ui.demo.basicTemplate.i18n.i18n"
+					"bundleName": "iamsoft.filav.posto.i18n.i18n"
 				}
 			}
 		},
@@ -61,7 +61,7 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"viewPath": "sap.ui.demo.basicTemplate.view",
+				"viewPath": "iamsoft.filav.posto.view",
 				"controlId": "app",
 				"controlAggregation": "pages"
 			},

@@ -4,7 +4,7 @@ sap.ui.define([
 	"use strict";
 
 	function getFrameUrl (sHash, sUrlParameters) {
-		var sUrl = jQuery.sap.getResourcePath("sap/ui/demo/basicTemplate/app", ".html");
+		var sUrl = jQuery.sap.getResourcePath("iamsoft/filav/posto/app", ".html");
 		sHash = sHash || "";
 		sUrlParameters = sUrlParameters ? "?" + sUrlParameters : "";
 
@@ -17,7 +17,7 @@ sap.ui.define([
 		return sUrl + sUrlParameters + sHash;
 	}
 
-	return Opa5.extend("sap.ui.demo.basicTemplate.test.integration.pages.Common", {
+	return Opa5.extend("iamsoft.filav.posto.test.integration.pages.Common", {
 
 		iStartTheApp : function (oOptions) {
 			oOptions = oOptions || {};
