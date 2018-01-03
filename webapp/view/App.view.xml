@@ -1,6 +1,9 @@
 <mvc:View
 	controllerName="iamsoft.filav.posto.controller.App"
+    xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
 	displayBlock="true"
 	xmlns="sap.m">
 	<App id="app">
@@ -8,7 +11,160 @@
 			<Page
 				id="page"
 				title="{i18n>title}">
-				<content></content>
+				<content>
+
+	<ObjectHeader
+		binding="{posto>/}"
+        title="{
+            path: 'posto>/',
+            formatter: '.formatter.postoHeaderTitle'
+            }"
+        visible="{=!${view>/estado/semPosto}}">
+		<statuses>
+			<ObjectStatus
+				text="{
+                    path: 'posto>/',
+                    formatter: '.formatter.postoStatusText'
+                    }"
+				state="{
+                    path: 'posto>/',
+                    formatter: '.formatter.postoStatusState'
+                    }" />
+		</statuses>
+		<attributes>
+			<ObjectAttribute text="Local: {posto>/local/nome}" />
+			<ObjectAttribute text="Fila: {posto>/fila/nome}" />
+			<ObjectAttribute text="Posto: {posto>/nome}" />
+			<ObjectAttribute text="Funcionario: {posto>/funcionario/name}" />
+			<ObjectAttribute text="Turno Ativo: {posto>/turno_em_atencao/id}" />
+			<ObjectAttribute text="Cliente: {posto>/turno_em_atencao/cliente/name}" />
+		</attributes>
+	</ObjectHeader>
+
+
+
+    <FlexBox
+    visible="{view>/estado/semPosto}"
+        alignItems="Center"
+        justifyContent="Center"
+        >
+        <items>
+            <f:Form editable="true"
+                >
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="4"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </f:layout>
+                <f:FormContainer>
+                    <f:formElements>
+                        <f:FormElement label="Local">
+                            <f:fields>
+                                <Select
+                                    id="localSelect"
+                                    forceSelection="false"
+                                    selectedKey="{form>/local}"
+                                    items="{
+                                        path: 'locais>/',
+                                        sorter: { path: 'nome' }
+                                    }"
+                                    change="onSelectLocal">
+                                    <core:Item key="{locais>id}" text="{locais>nome}" />
+                                </Select>
+                            </f:fields>
+                        </f:FormElement>
+                        <f:FormElement label="Posto">
+                            <f:fields>
+                                <Select
+                                    id="postoSelect"
+                                    forceSelection="false"
+                                    selectedKey="{form>/posto}"
+                                    items="{
+                                        path: 'postos>/',
+                                        sorter: { path: 'nome' }
+                                    }"
+                                    enabled="{view>/estado/localSelecionado}"
+                                    change="onSelectPosto">
+                                    <core:Item key="{postos>id}" text="{postos>nome}" />
+                                </Select>
+                            </f:fields>
+                        </f:FormElement>
+                        <f:FormElement>
+                            <Button text="Ocupar Posto" type="Emphasized"
+                                press="onOcuparPosto" id="ocuparButton"
+                                enabled="{view>/estado/postoSelecionado}">
+                            </Button>
+                        </f:FormElement>
+                    </f:formElements>
+                </f:FormContainer>
+            </f:Form>
+        </items>
+    </FlexBox>
+
+
+	<l:VerticalLayout
+			class="sapUiContentPadding"
+			width="100%">
+		<l:content>
+	<List class="sapContrast sapContrastPlus" items="{notificacoes>/}"
+        noDataText="Sem Notificações">
+		<NotificationListItem
+				title="{notificacoes>title}"
+				description="{notificacoes>description}"
+				showCloseButton="true"
+				datetime="{notificacoes>creationDate}"
+				unread="true"
+				priority="{notificacoes>priority}"
+				close="onItemClose"
+				 >
+		</NotificationListItem>
+	</List>
+		</l:content>
+	</l:VerticalLayout>
+
+
+
+                </content>
+
+
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+
+				<Button text="Chamar Seguinte" type="Accept"
+                    press="onChamarSeguinte" visible='{view>/estado/emPausa}'/>
+				<Button text="Desocupar Posto" type="Reject"
+                    press="onDesocuparPosto" visible='{view>/estado/emPausa}'/>
+
+				<Button text="Cancelar Chamado" type="Reject"
+                    press="onCancelarChamado"
+                    visible='{view>/estado/esperandoCliente}'/>
+
+				<Button text="Atender" type="Accept"
+                    press="onAtender" visible='{view>/estado/clienteChamado}'/>
+				<Button text="Cliente Ausente" type="Reject"
+                    press="onIndicarAusencia"
+                    visible='{view>/estado/clienteChamado}'/>
+
+				<Button text="Finalizar Atenção" type="Reject"
+                    press="onFinalizarAtencao"
+                    visible='{view>/estado/atendendo}'/>
+
+				<Button text="Atualizar" press="onAtualizar"/>
+			</Toolbar>
+		</footer>
+
 			</Page>
 		</pages>
 	</App>
