@@ -163,7 +163,7 @@ sap.ui.define([
         onItemClose: function (oEvent) {
             let oNotificacao = oEvent.getSource().getBindingContext(
                 'notificacoes').getObject();
-            let oModel = this.getModel('notificacoes');
+            let oModel = this.getView().getModel('notificacoes');
             let aNotificacoes = oModel.getData();
             let index = aNotificacoes.indexOf(oNotificacao);
             aNotificacoes.splice(index, 1);
