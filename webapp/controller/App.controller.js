@@ -202,6 +202,9 @@ sap.ui.define([
             oModel.refresh();
         },
 
+        onLogout: function(){
+            window.open('/logout','_self');
+        },
 
     });
 });

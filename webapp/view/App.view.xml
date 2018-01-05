@@ -11,6 +11,11 @@
 			<Page
 				id="page"
 				title="{i18n>title}">
+
+        <headerContent>
+            <Button icon="sap-icon://log" text="Logout" press="onLogout" />
+        </headerContent>
+
 				<content>
 
 	<ObjectHeader
