@@ -14,6 +14,7 @@ sap.ui.define([
         esperandoCliente: false,
         clienteChamado: false,
         atendendo: false,
+        inativo: false,
     };
 
     let ESTADOS_POSTO = Posto.ESTADOS_POSTO;
@@ -81,6 +82,8 @@ sap.ui.define([
                 case ESTADOS_POSTO.ATENDENDO:
                     this.setEstado({atendendo:true});
                     break;
+                case ESTADOS_POSTO.INATIVO:
+                    this.setEstado({inativo:true});
                 }
         },
 
