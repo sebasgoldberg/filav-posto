@@ -147,6 +147,7 @@
 			<Toolbar>
 				<ToolbarSpacer/>
 
+
 				<Button text="Chamar Seguinte" type="Accept"
                     press="onChamarSeguinte" visible='{view>/estado/emPausa}'/>
 				<Button text="Desocupar Posto" type="Reject"
@@ -166,6 +167,7 @@
                     press="onFinalizarAtencao"
                     visible='{view>/estado/atendendo}'/>
 
+                <ToggleButton text="Pausar" enabled="true" pressed="{view>/pausarSeguinte}" />
 				<Button text="Atualizar" press="onAtualizar"/>
 			</Toolbar>
 		</footer>

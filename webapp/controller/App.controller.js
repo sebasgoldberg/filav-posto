@@ -26,6 +26,7 @@ sap.ui.define([
         form: {local:'', posto:''},
         view: {
             estado: ESTADOS,
+            pausarSeguinte: false,
         },
         notificacoes: [],
     };
@@ -117,7 +118,9 @@ sap.ui.define([
         onOcuparPosto: function(){
             let oModel = this.getView().getModel('form');
             let form = oModel.getData();
-            this.posto.ocuparPosto(form.posto);
+            this.posto.ocuparPosto(form.posto).then(
+                () => this.chamarSeguinteSeNaoTemPausa()
+            );
         },
 
         onChamarSeguinte: function(){
@@ -128,12 +131,27 @@ sap.ui.define([
             this.posto.cancelarChamado();
         },
 
+        chamarSeguinteSeNaoTemPausa: function(){
+            let oModel = this.getView().getModel('view');
+            let view = oModel.getData();
+            if (view.pausarSeguinte){
+                view.pausarSeguinte = false;
+                oModel.refresh();
+                return;
+            }
+            this.posto.chamarSeguinte();
+        },
+
         onFinalizarAtencao: function(){
-            this.posto.finalizarAtencao();
+            this.posto.finalizarAtencao().then(
+                () => this.chamarSeguinteSeNaoTemPausa()
+            );
         },
 
         onIndicarAusencia: function(){
-            this.posto.indicarAusencia();
+            this.posto.indicarAusencia().then(
+                () => this.chamarSeguinteSeNaoTemPausa()
+            );
         },
 
         onAtender: function(){

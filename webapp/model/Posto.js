@@ -17,14 +17,20 @@ sap.ui.define([
         Posto: Object.extend('iamsoft.filav.posto.model.Posto', {
             
             constructor: function () {
+                this.return = true;
                 this._socket = new Socket('/posto/');
                 this._socket.listen( data => {
                     this.publishToEventBus(data.message, data.data);
+                    if (this.messageSocketArriveCallback){
+                        this.messageSocketArriveCallback();
+                        this.messageSocketArriveCallback = undefined;
+                    }
                 });
             },
 
             ocuparPosto: function(posto){
                 this._socket.send({message: 'OCUPAR_POSTO',  data: {posto: posto, }});
+                return this.createMessageSocketArrivePromise();
             },
 
             chamarSeguinte: function(){
@@ -35,12 +41,20 @@ sap.ui.define([
                 this._socket.send({message: 'CANCELAR_CHAMADO',  data: {}});
             },
 
+            createMessageSocketArrivePromise: function(){
+                return new Promise(resolve =>
+                    this.messageSocketArriveCallback = resolve
+                );
+            },
+
             finalizarAtencao: function(){
                 this._socket.send({message: 'FINALIZAR_ATENCAO',  data: {}});
+                return this.createMessageSocketArrivePromise();
             },
 
             indicarAusencia: function(){
                 this._socket.send({message: 'INDICAR_AUSENCIA',  data: {}});
+                return this.createMessageSocketArrivePromise();
             },
 
             atender: function(){
